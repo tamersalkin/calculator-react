@@ -64,6 +64,7 @@ class App extends Component {
       this.setState({
         bigDisplay: result !== null ? result : this.state.bigDisplay,
       });
+      console.log(this.state.bigDisplay, this.state.miniDisplay);
     } else {
       // for + - / *
       this.setState({
@@ -79,7 +80,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <div className="displays">
+        <div id="display" className="displays">
           <div className="mini-display">{this.state.miniDisplay}</div>
           <div className="big-display">{this.state.bigDisplay}</div>
         </div>
