@@ -37,7 +37,6 @@ class App extends Component {
       //       ),
       //     });
       //   }
-      // Function("return " + this.state.miniDisplay)(),
     } else if (typeof button === "number") {
       this.setState({
         miniDisplay: this.state.miniDisplay + button,
@@ -49,16 +48,18 @@ class App extends Component {
     } else if (button === "=") {
       let result = null;
       if (
-        this.state.miniDisplay[0] !== "+" ||
-        this.state.miniDisplay[0] !== "-" ||
-        this.state.miniDisplay[0] !== "*" ||
-        this.state.miniDisplay[0] !== "/"
+        this.state.miniDisplay[0] === "+" ||
+        this.state.miniDisplay[0] === "-" ||
+        this.state.miniDisplay[0] === "*" ||
+        this.state.miniDisplay[0] === "/" ||
+        this.state.miniDisplay[this.state.miniDisplay.length - 1] === "+" ||
+        this.state.miniDisplay[this.state.miniDisplay.length - 1] === "-" ||
+        this.state.miniDisplay[this.state.miniDisplay.length - 1] === "*" ||
+        this.state.miniDisplay[this.state.miniDisplay.length - 1] === "/"
       ) {
-        for (let i = 0; i < this.state.miniDisplay.length; i++) {
-          if (!isNaN(Number(this.state.miniDisplay[i]))) {
-            result = 0;
-          }
-        }
+        result = null;
+      } else {
+        result = Function("return " + this.state.miniDisplay)();
       }
       this.setState({
         bigDisplay: result !== null ? result : this.state.bigDisplay,

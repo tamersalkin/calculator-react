@@ -5,7 +5,8 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Share Tech Mono, sans-serif;
+  font-size: 1.2rem;
   line-height: 1.4;
   display: flex;
   justify-content: center;
@@ -25,33 +26,34 @@ a {
 
 .container {
   background-color: lightgray;
-  height: 500px;
-  width: 500px;
-  padding: 10px;
+  height: 32rem;
+  width: 32rem;
+  padding: 0.6rem;
 }
 
 .displays {
   background-color: lightslategrey;
-  height: 100px;
+  height: 6rem;
   display: flex;
   align-items: flex-end;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .mini-display {
-  height: 50px;
+  height: 3rem;
   font-size: 150%;
-  padding: 5px 5px;
+  padding: 0.1rem 0.1rem;
 }
 .big-display {
-  height: 50px;
+  height: 3rem;
   font-size: 200%;
-  padding-right: 5px;
+  padding-right: 0.1rem;
 }
 
 .buttons {
   background-color: lightsteelblue;
-  height: 380px;
+  height: 24.8rem;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -62,12 +64,12 @@ a {
     "one two three equals"
     "zero zero decimal equals";
   border-style: solid;
-  border-width: 1px;
+  border-width: 0.01rem;
 }
 
 .button {
   border-style: solid;
-  border-width: 1px;
+  border-width: 0.01rem;
   display: flex;
   justify-content: center;
   align-items: center;
