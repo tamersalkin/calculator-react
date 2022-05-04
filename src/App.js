@@ -1,142 +1,86 @@
 import React, { Component } from "react";
 import "./App.css";
-
-const buttonBank = [
-  {
-    buttonid: 1,
-    id: "clear",
-    button: "AC",
-  },
-  {
-    buttonid: 2,
-    id: "divide",
-    button: "/",
-  },
-  {
-    buttonid: 3,
-    id: "multiply",
-    button: "*",
-  },
-  {
-    buttonid: 4,
-    id: "seven",
-    button: 7,
-  },
-  {
-    buttonid: 5,
-    id: "eight",
-    button: 8,
-  },
-  {
-    buttonid: 6,
-    id: "nine",
-    button: 9,
-  },
-  {
-    buttonid: 7,
-    id: "subtract",
-    button: "-",
-  },
-  {
-    buttonid: 8,
-    id: "four",
-    button: 4,
-  },
-  {
-    buttonid: 9,
-    id: "five",
-    button: 5,
-  },
-  {
-    buttonid: 10,
-    id: "six",
-    button: 6,
-  },
-  {
-    buttonid: 11,
-    id: "add",
-    button: "+",
-  },
-  {
-    buttonid: 12,
-    id: "one",
-    button: 1,
-  },
-  {
-    buttonid: 13,
-    id: "two",
-    button: 2,
-  },
-  {
-    buttonid: 14,
-    id: "three",
-    button: 3,
-  },
-  {
-    buttonid: 15,
-    id: "equals",
-    button: "=",
-  },
-  {
-    buttonid: 16,
-    id: "delete",
-    button: "DEL",
-  },
-  {
-    buttonid: 17,
-    id: "zero",
-    button: 0,
-  },
-  {
-    buttonid: 18,
-    id: "decimal",
-    button: ".",
-  },
-];
+import buttonBank from "./data";
 
 class App extends Component {
   state = {
     miniDisplay: "",
     bigDisplay: 0,
   };
-  handleClick = (a) => {
-    if (a === "AC") {
+  handleClick = (button) => {
+    if (button === "AC") {
       this.setState({
         miniDisplay: "",
         bigDisplay: 0,
       });
-    } else if (a === "DEL") {
-    } else if (a === "=") {
+      // delete button
+      // } else if (button === "DEL") {
+      //   if (
+      //     this.state.miniDisplay[this.state.miniDisplay.length - 1] ===
+      //     this.state.bigDisplay[this.state.bigDisplay.length - 1]
+      //   ) {
+      //     this.setState({
+      //       miniDisplay: this.state.miniDisplay.slice(
+      //         0,
+      //         this.state.miniDisplay.length - 1
+      //       ),
+      //       bigDisplay: this.state.bigDisplay.slice(
+      //         0,
+      //         this.state.bigDisplay.length - 1
+      //       ),
+      //     });
+      //   } else {
+      //     this.setState({
+      //       bigDisplay: this.state.bigDisplay.slice(
+      //         0,
+      //         this.state.bigDisplay.length - 1
+      //       ),
+      //     });
+      //   }
+      // Function("return " + this.state.miniDisplay)(),
+    } else if (typeof button === "number") {
       this.setState({
-        bigDisplay: +this.state.miniDisplay,
+        miniDisplay: this.state.miniDisplay + button,
+        bigDisplay:
+          this.state.bigDisplay === 0 || isNaN(this.state.bigDisplay)
+            ? button
+            : "" + this.state.bigDisplay + button,
+      });
+    } else if (button === "=") {
+      let result = null;
+      if (
+        this.state.miniDisplay[0] !== "+" ||
+        this.state.miniDisplay[0] !== "-" ||
+        this.state.miniDisplay[0] !== "*" ||
+        this.state.miniDisplay[0] !== "/"
+      ) {
+        for (let i = 0; i < this.state.miniDisplay.length; i++) {
+          if (!isNaN(Number(this.state.miniDisplay[i]))) {
+            result = 0;
+          }
+        }
+      }
+      this.setState({
+        bigDisplay: result !== null ? result : this.state.bigDisplay,
       });
     } else {
-      if (typeof a === "number") {
-        this.setState({
-          miniDisplay: this.state.miniDisplay + a,
-          bigDisplay:
-            this.state.bigDisplay === 0 || isNaN(+this.state.bigDisplay)
-              ? a
-              : this.state.bigDisplay + "" + a,
-        });
-      } else {
-        this.setState({
-          miniDisplay: isNaN(
-            this.state.miniDisplay[this.state.miniDisplay.length - 1]
-          )
-            ? this.state.miniDisplay.slice(0, -1) + a
-            : this.state.miniDisplay + a,
-          bigDisplay: a,
-        });
-      }
+      // for + - / *
+      this.setState({
+        miniDisplay: isNaN(
+          this.state.miniDisplay[this.state.miniDisplay.length - 1]
+        )
+          ? this.state.miniDisplay.slice(0, -1) + button
+          : this.state.miniDisplay + button,
+        bigDisplay: button,
+      });
     }
   };
   render() {
     return (
       <div className="container">
         <div className="displays">
-          <div className="display">{this.state.miniDisplay}</div>
-          <div className="display">{this.state.bigDisplay}</div>
+          <div className="mini-display">{this.state.miniDisplay}</div>
+          <div className="big-display">{this.state.bigDisplay}</div>
         </div>
         <div className="buttons">
           {buttonBank.map((x) => (
